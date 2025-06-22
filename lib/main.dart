@@ -35,36 +35,49 @@ class MyCameraApp extends StatelessWidget {
   Widget build(_) {
     return MaterialApp(
       title: 'Camera App Navigation',
-      onGenerateRoute: (settings) {
-        if (settings.name == '/camera') {
-          return MaterialPageRoute(
-            builder: (context) => const multi_camera.CameraPage(),
-          );
-        } else if (settings.name == '/gallery') {
+      initialRoute: '/',
+      routes: {
+
+        '/': (context) => const AllRoutes(),
+        '/camera': (context) => const multi_camera.CameraPage(),
+        '/gallery': (context) {
           final multipleCaptureRequest =
-              settings.arguments as MultipleCaptureRequest?;
-          return MaterialPageRoute(
-            builder: (context) => multi_camera.GalleryPage(
-              multipleCaptureRequest: multipleCaptureRequest ?? MultipleCaptureRequest({}),
-            ),
+          ModalRoute.of(context)?.settings.arguments as MultipleCaptureRequest?;
+          return multi_camera.GalleryPage(
+        multipleCaptureRequest: multipleCaptureRequest ?? MultipleCaptureRequest({}),
           );
-        } else if (settings.name == '/cameraPage') {
-          return MaterialPageRoute(
-              builder: (context) => const subroute.CameraPage());
-        }
-        return null;
+        },
+        '/cameraPage': (context) => const subroute.CameraPage(),
       },
-      builder: (context, child) =>  Scaffold(
+     
+    );
+  }
+}
+
+
+
+
+class AllRoutes extends StatefulWidget {
+  const AllRoutes({super.key});
+
+  @override
+  State<AllRoutes> createState() => _AllRoutesState();
+}
+
+class _AllRoutesState extends State<AllRoutes> {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
         appBar: AppBar(
           title: const Text('Camera App Navigation'),
         ),
         body: ListView(
           children: [
+            
             ListTile(
               title: const Text('CameraAwesome Main Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const CameraPageMain()),
                 );
               },
@@ -72,8 +85,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('AI Analysis Barcode Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const ai_analysis_barcode.MyHomePage()),
                 );
               },
@@ -81,8 +93,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('ai_analysis_faces Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const ai_analysis_faces.CameraPage()),
                 );
               },
@@ -90,8 +101,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('AI Analysis Text Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const ai_analysis_text.MyHomePage()),
                 );
               },
@@ -99,8 +109,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('Analysis Image Filter Picker Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const analysis_image_filter_picker.CameraPage()),
                 );
               },
@@ -108,8 +117,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('Analysis Image Filter Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const analysis_image_filter.CameraPage()),
                 );
               },
@@ -117,8 +125,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('Camera Analysis Capabilities Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const camera_analysis_capabilities.CameraPage()),
                 );
               },
@@ -126,8 +133,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('Custom Awesome UI Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const custom_awesome_ui.CameraPage()),
                 );
               },
@@ -135,8 +141,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('Custom Theme Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const custom_theme.CameraPage()),
                 );
               },
@@ -144,8 +149,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('CustomUiExample1 Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const CustomUiExample1()),
                 );
               },
@@ -153,8 +157,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('CustomUiExample2 Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const CustomUiExample2()),
                 );
               },
@@ -162,8 +165,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text('CustomUiExample3 Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const CustomUiExample3()),
                 );
               },
@@ -171,8 +173,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text(' Run Drivable Camera Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const run_drivable_camera.CameraAwesomeApp()),
                 );
               },
@@ -180,8 +181,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text(' fix_preview Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const fix_preview.CameraAwesomeApp()),
                 );
               },
@@ -205,8 +205,7 @@ class MyCameraApp extends StatelessWidget {
             ListTile(
               title: const Text(' preview overlay  Example'),
               onTap: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const preview_overlay_example.CameraPage()),
                 );
               },
@@ -219,15 +218,9 @@ class MyCameraApp extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
-
-
-
-
-
 
 
 
