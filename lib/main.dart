@@ -28,237 +28,201 @@ void main() {
   runApp(const MyCameraApp());
 }
 
-
-
-
-
-
-
-class MyCameraApp extends StatelessWidget{
+class MyCameraApp extends StatelessWidget {
   const MyCameraApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(_) {
     return MaterialApp(
       title: 'Camera App Navigation',
-       onGenerateRoute: (settings) {
+      onGenerateRoute: (settings) {
         if (settings.name == '/camera') {
           return MaterialPageRoute(
             builder: (context) => const multi_camera.CameraPage(),
           );
         } else if (settings.name == '/gallery') {
           final multipleCaptureRequest =
-              settings.arguments as MultipleCaptureRequest;
+              settings.arguments as MultipleCaptureRequest?;
           return MaterialPageRoute(
-            builder: (context) =>  multi_camera.GalleryPage(
-              multipleCaptureRequest: multipleCaptureRequest,
+            builder: (context) => multi_camera.GalleryPage(
+              multipleCaptureRequest: multipleCaptureRequest ?? MultipleCaptureRequest({}),
             ),
           );
         } else if (settings.name == '/cameraPage') {
           return MaterialPageRoute(
-            builder: (context) => const subroute.CameraPage()
-          );
+              builder: (context) => const subroute.CameraPage());
         }
         return null;
       },
-      home: Scaffold(
-      appBar: AppBar(
-        title: const Text('Camera App Navigation'),
-      ),
-      body: SingleChildScrollView(
-        child: ListView(
+      builder: (context, child) =>  Scaffold(
+        appBar: AppBar(
+          title: const Text('Camera App Navigation'),
+        ),
+        body: ListView(
           children: [
-          ListTile(
-            title: const Text('CameraAwesome Main Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CameraPageMain()),
-            );
-            },
-          ),  ListTile(
-            title: const Text('AI Analysis Barcode Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ai_analysis_barcode.MyHomePage()),
-            );
-            },
-          ),
-          // MyHomePage
-          ListTile(
-            title: const Text('ai_analysis_faces Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ai_analysis_faces.CameraPage()),
-            );
-            },
-          ),
-          //CameraPage
-          ListTile(
-            title: const Text('AI Analysis Text Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ai_analysis_text.MyHomePage()),
-            );
-            },
-          ),
-          //MyHomePage
-             ListTile(
-            title: const Text('Analysis Image Filter Picker Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const analysis_image_filter_picker.CameraPage()),
-            );
-            },
-          ),
             ListTile(
-            title: const Text('Analysis Image Filter Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const analysis_image_filter.CameraPage()),
-            );
-            },
-          ),
-           ListTile(
-            title: const Text('Camera Analysis Capabilities Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const camera_analysis_capabilities.CameraPage()),
-            );
-            },
-          ),
-           ListTile(
-            title: const Text('Custom Awesome UI Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const custom_awesome_ui.CameraPage()),
-            );
-            },
-          ),
-           ListTile(
-            title: const Text('Custom Theme Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const custom_theme.CameraPage()),
-            );
-            },
-          ),
-
-   ListTile(
-            title: const Text('CustomUiExample1 Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CustomUiExample1()),
-            );
-            },
-          ),
-              ListTile(
-            title: const Text('CustomUiExample2 Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CustomUiExample2()),
-            );
-            },
-          ),
-             ListTile(
-            title: const Text('CustomUiExample3 Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CustomUiExample3()),
-            );
-            },
-          ),
-           ListTile(
-            title: const Text(' Run Drivable Camera Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const  run_drivable_camera.CameraAwesomeApp()),
-            );
-            },
-          ),
-           ListTile(
-            title: const Text(' fix_preview Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const fix_preview.CameraAwesomeApp()),
-            );
-            },
-          ),
-          ListTile(
-            title: const Text(' fix_preview Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const fix_preview.CameraAwesomeApp()),
-            );
-            },
-          ),
-          // Add more ListTiles here for other screens
-            ListTile(
-            title: const Text('Multi Camera Example'),
-            onTap: () {
-              Navigator.pushNamed(context, '/camera');
-            },
+              title: const Text('CameraAwesome Main Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CameraPageMain()),
+                );
+              },
             ),
             ListTile(
-            title: const Text('Gallery Example'),
-            onTap: () async {
-              // // You need to provide a valid MultipleCaptureRequest here.
-              // // For demonstration, we'll create a dummy one.
-              // final Directory extDir = await getTemporaryDirectory();
-              // final testDir = await Directory(
-              // '${extDir.path}/camerawesome',
-              // ).create(recursive: true);
-              // final dummyRequest = MultipleCaptureRequest({
-              // Sensor.position(SensorPosition.back):
-              //   '${testDir.path}/dummy.jpg',
-              // });
-              Navigator.pushNamed(
-              context,
-              '/gallery',
-              // arguments: dummyRequest,
-              );
-            },
+              title: const Text('AI Analysis Barcode Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ai_analysis_barcode.MyHomePage()),
+                );
+              },
             ),
-               ListTile(
-            title: const Text(' preview overlay  Example'),
-            onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const preview_overlay_example.CameraPage()),
-            );
-            },
-          ),
-           ListTile(
-            title: const Text('SubRoute Camera Example'),
-            onTap: () {
-              Navigator.pushNamed(context, '/cameraPage');
-            },
+            ListTile(
+              title: const Text('ai_analysis_faces Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ai_analysis_faces.CameraPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('AI Analysis Text Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ai_analysis_text.MyHomePage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Analysis Image Filter Picker Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const analysis_image_filter_picker.CameraPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Analysis Image Filter Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const analysis_image_filter.CameraPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Camera Analysis Capabilities Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const camera_analysis_capabilities.CameraPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Custom Awesome UI Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const custom_awesome_ui.CameraPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Custom Theme Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const custom_theme.CameraPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('CustomUiExample1 Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CustomUiExample1()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('CustomUiExample2 Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CustomUiExample2()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('CustomUiExample3 Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CustomUiExample3()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(' Run Drivable Camera Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const run_drivable_camera.CameraAwesomeApp()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(' fix_preview Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const fix_preview.CameraAwesomeApp()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Multi Camera Example'),
+              onTap: () {
+                Navigator.pushNamed(context, '/camera');
+              },
+            ),
+            ListTile(
+              title: const Text('Gallery Example'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/gallery',
+                  // arguments: dummyRequest,
+                );
+              },
+            ),
+            ListTile(
+              title: const Text(' preview overlay  Example'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const preview_overlay_example.CameraPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('SubRoute Camera Example'),
+              onTap: () {
+                Navigator.pushNamed(context, '/cameraPage');
+              },
             ),
           ],
         ),
       ),
-      ),
     );
   }
 }
-
-
-
-
 
 
 
