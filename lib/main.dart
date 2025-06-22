@@ -1,30 +1,292 @@
 import 'dart:io';
 
 // import 'package:better_open_file/better_open_file.dart';
+import 'package:camera_app/ai_analysis_barcode.dart' as ai_analysis_barcode;
+import 'package:camera_app/ai_analysis_faces.dart' as ai_analysis_faces;
+import 'package:camera_app/ai_analysis_text.dart' as ai_analysis_text;
+import 'package:camera_app/analysis_image_filter_picker.dart' as analysis_image_filter_picker;
+import 'package:camera_app/analysis_image_filter.dart' as analysis_image_filter;
+import 'package:camera_app/camera_analysis_capabilities.dart' as camera_analysis_capabilities;
+import 'package:camera_app/custom_awesome_ui.dart' as custom_awesome_ui;
+import 'package:camera_app/custom_theme.dart' as custom_theme;
+import 'package:camera_app/custom_ui_example_1.dart' show CustomUiExample1;
+import 'package:camera_app/custom_ui_example_2.dart';
+import 'package:camera_app/custom_ui_example_3.dart';
+import 'package:camera_app/fix_preview.dart' as fix_preview;
+import 'package:camera_app/multi_camera.dart' as  multi_camera;
+import 'package:camera_app/preview_overlay_example.dart' as preview_overlay_example;
+
+import 'package:camera_app/run_drivable_camera.dart' as  run_drivable_camera;
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/pigeon.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'subroute_camera.dart' as subroute;
 import 'utils/file_utils.dart';
 
 void main() {
-  runApp(const CameraAwesomeApp());
+  runApp(const MyCameraApp());
 }
 
-class CameraAwesomeApp extends StatelessWidget {
-  const CameraAwesomeApp({super.key});
+
+
+
+
+
+
+class MyCameraApp extends StatelessWidget{
+  const MyCameraApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'camerAwesome',
-      home: CameraPage(),
+    return MaterialApp(
+      title: 'Camera App Navigation',
+       onGenerateRoute: (settings) {
+        if (settings.name == '/camera') {
+          return MaterialPageRoute(
+            builder: (context) => const multi_camera.CameraPage(),
+          );
+        } else if (settings.name == '/gallery') {
+          final multipleCaptureRequest =
+              settings.arguments as MultipleCaptureRequest;
+          return MaterialPageRoute(
+            builder: (context) =>  multi_camera.GalleryPage(
+              multipleCaptureRequest: multipleCaptureRequest,
+            ),
+          );
+        } else if (settings.name == '/cameraPage') {
+          return MaterialPageRoute(
+            builder: (context) => const subroute.CameraPage()
+          );
+        }
+        return null;
+      },
+      home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Camera App Navigation'),
+      ),
+      body: SingleChildScrollView(
+        child: ListView(
+          children: [
+          ListTile(
+            title: const Text('CameraAwesome Main Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CameraPageMain()),
+            );
+            },
+          ),  ListTile(
+            title: const Text('AI Analysis Barcode Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ai_analysis_barcode.MyHomePage()),
+            );
+            },
+          ),
+          // MyHomePage
+          ListTile(
+            title: const Text('ai_analysis_faces Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ai_analysis_faces.CameraPage()),
+            );
+            },
+          ),
+          //CameraPage
+          ListTile(
+            title: const Text('AI Analysis Text Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ai_analysis_text.MyHomePage()),
+            );
+            },
+          ),
+          //MyHomePage
+             ListTile(
+            title: const Text('Analysis Image Filter Picker Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const analysis_image_filter_picker.CameraPage()),
+            );
+            },
+          ),
+            ListTile(
+            title: const Text('Analysis Image Filter Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const analysis_image_filter.CameraPage()),
+            );
+            },
+          ),
+           ListTile(
+            title: const Text('Camera Analysis Capabilities Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const camera_analysis_capabilities.CameraPage()),
+            );
+            },
+          ),
+           ListTile(
+            title: const Text('Custom Awesome UI Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const custom_awesome_ui.CameraPage()),
+            );
+            },
+          ),
+           ListTile(
+            title: const Text('Custom Theme Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const custom_theme.CameraPage()),
+            );
+            },
+          ),
+
+   ListTile(
+            title: const Text('CustomUiExample1 Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CustomUiExample1()),
+            );
+            },
+          ),
+              ListTile(
+            title: const Text('CustomUiExample2 Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CustomUiExample2()),
+            );
+            },
+          ),
+             ListTile(
+            title: const Text('CustomUiExample3 Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CustomUiExample3()),
+            );
+            },
+          ),
+           ListTile(
+            title: const Text(' Run Drivable Camera Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const  run_drivable_camera.CameraAwesomeApp()),
+            );
+            },
+          ),
+           ListTile(
+            title: const Text(' fix_preview Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const fix_preview.CameraAwesomeApp()),
+            );
+            },
+          ),
+          ListTile(
+            title: const Text(' fix_preview Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const fix_preview.CameraAwesomeApp()),
+            );
+            },
+          ),
+          // Add more ListTiles here for other screens
+            ListTile(
+            title: const Text('Multi Camera Example'),
+            onTap: () {
+              Navigator.pushNamed(context, '/camera');
+            },
+            ),
+            ListTile(
+            title: const Text('Gallery Example'),
+            onTap: () async {
+              // // You need to provide a valid MultipleCaptureRequest here.
+              // // For demonstration, we'll create a dummy one.
+              // final Directory extDir = await getTemporaryDirectory();
+              // final testDir = await Directory(
+              // '${extDir.path}/camerawesome',
+              // ).create(recursive: true);
+              // final dummyRequest = MultipleCaptureRequest({
+              // Sensor.position(SensorPosition.back):
+              //   '${testDir.path}/dummy.jpg',
+              // });
+              Navigator.pushNamed(
+              context,
+              '/gallery',
+              // arguments: dummyRequest,
+              );
+            },
+            ),
+               ListTile(
+            title: const Text(' preview overlay  Example'),
+            onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const preview_overlay_example.CameraPage()),
+            );
+            },
+          ),
+           ListTile(
+            title: const Text('SubRoute Camera Example'),
+            onTap: () {
+              Navigator.pushNamed(context, '/cameraPage');
+            },
+            ),
+          ],
+        ),
+      ),
+      ),
     );
   }
 }
 
-class CameraPage extends StatelessWidget {
-  const CameraPage({super.key});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class CameraAwesomeApp extends StatelessWidget {
+//   const CameraAwesomeApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       title: 'camerAwesome',
+//       home: CameraPage(),
+//     );
+//   }
+// }
+
+class CameraPageMain extends StatelessWidget {
+  const CameraPageMain({super.key});
 
   @override
   Widget build(BuildContext context) {
